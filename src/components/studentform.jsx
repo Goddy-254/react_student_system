@@ -30,7 +30,7 @@ const StudentForm = () => {
             console.log(response)
             
 
-            //redirect("/")
+            redirect("/")
             toast.success("Form submitted suceesfully")
 
         } catch (error) {

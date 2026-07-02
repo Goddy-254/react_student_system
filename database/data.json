@@ -1,14 +1,4 @@
 {
-  "students": [
-    {
-      "firstName": "godfrey",
-      "secondName": "maina",
-      "admNumber": "1111",
-      "email": "j@gmail.com",
-      "course": "software engenerring",
-      "id": "Qb30MgtbNX4",
-      "picUrl": "https://images.unsplash.com/photo-1541178735493-479c1a27ed24?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8b25lJTIwc3R1ZGVudCUyMHBpY3xlbnwwfHwwfHx8MA%3D%3D"
-    }
-  ],
+  "students": [],
   "$schema": "./node_modules/json-server/schema.json"
 }
