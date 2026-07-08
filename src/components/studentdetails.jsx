@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 
 const StudentDetails = () => {
@@ -11,7 +13,7 @@ const StudentDetails = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/students/${id}`)
+        axios.get(`http://localhost:4000/students/${id}`)
             .then((response) => {
                 setData(response.data);
             })
@@ -20,22 +22,42 @@ const StudentDetails = () => {
             })
     }, [id])
 
-    const deleteStudent = async () => {
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this student?"
-        );
+    const deleteStudent = async (studentId) => {
+        const result = await Swal.fire({
+            title: "Delete Student?",
+            text: "You won't be able to undo this action!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#dc2626",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Yes, Delete",
+        });
 
-        if (!confirmDelete) return;
+        if (!result.isConfirmed) return;
 
         try {
-            await axios.delete(`http://localhost:3000/students/${id}`);
+            console.log("Deleting student", studentId);
+            const response = await axios.delete(`http://localhost:4000/students/${studentId}`);
+            console.log("Delete response", response.status);
 
-            alert("Student deleted successfully");
+            Swal.fire({
+                icon: "success",
+                title: "Deleted!",
+                text: "Student has been deleted.",
+                timer: 1000,
+                showConfirmButton: false,
+            });
 
-            navigate("/students"); // or "/" depending on your routes
+            setTimeout(() => {
+                navigate("/");
+            }, 1600);
         } catch (error) {
-            console.log(error);
-            alert("Failed to delete student");
+            console.error("Delete failed", error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Failed to delete student.",
+            });
         }
     };
 
@@ -115,11 +137,11 @@ const StudentDetails = () => {
                                 Edit
                             </Link>
 
-                            <button
+                            <Link
                                 className="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition duration-300"
-                                onClick={deleteStudent}>
+                                onClick={() => deleteStudent(studentData.id)}>
                                 Delete
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

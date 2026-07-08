@@ -13,30 +13,23 @@ const StudentForm = () => {
         picUrl: ""
     })
 
-    const redirect = useNavigate()
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const studentRegister = async(e) => {
-
-        e.preventDefault();
+    const studentRegister = async (e) => {
+        e.preventDefault()
 
         try {
-
-            const response =await axios.post("http://localhost:3000/students",formData);
-
-            console.log(response)
-            
-
-            redirect("/")
-            toast.success("Form submitted suceesfully")
-
+            await axios.post("http://localhost:4000/students", formData)
+            toast.success("Form submitted successfully")
+            navigate("/students")
         } catch (error) {
+            console.error(error)
             toast.error("Failed to submit")
         }
-
     }
 
 

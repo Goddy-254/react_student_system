@@ -24,7 +24,7 @@ const EditStudent = () => {
             return;
         }
 
-        axios.get(`http://localhost:3000/students/${id}`)
+        axios.get(`http://localhost:4000/students/${id}`)
             .then((response) => {
                 setFormData(response.data);
             })
@@ -47,7 +47,7 @@ const EditStudent = () => {
         }
 
         try {
-            await axios.put(`http://localhost:3000/students/${id}`, formData);
+            await axios.put(`http://localhost:4000/students/${id}`, formData);
             toast.success("Student updated successfully");
             navigate(`/students/${id}`);
         } catch (error) {

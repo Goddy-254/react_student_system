@@ -7,7 +7,7 @@ function ViewStudents() {
     const [error,setError] = useState("")
 
     useEffect(()=>{
-        fetch("http://localhost:3000/students")
+        fetch("http://localhost:4000/students")
         .then((response)=>{
           return response.json();
         })
@@ -22,7 +22,10 @@ function ViewStudents() {
 
   return (
   <div className="container">
-   <StudentCard studentData={students} />
+   <StudentCard 
+   studentData={students}
+   setStudents={setStudents}
+   />
   </div>
   );
 }
